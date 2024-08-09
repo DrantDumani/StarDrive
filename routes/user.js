@@ -16,4 +16,4 @@ router.post("/log-out", (req, res) => {
   res.send("User can log out");
 });
 
-module.exports = folder;
+module.exports = router;
