@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Log in form</h1>
+    <form method="POST">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        value="<%=(locals.email || '')%>"
+      />
+
+      <label for="pw">Password:</label>
+      <input type="password" id="pw" name="password" required />
+      <button>Log In</button>
+    </form>
+    <p>Don't have an account? <a href="sign-up">Sign Up</a> here!</p>
+  </body>
+</html>
