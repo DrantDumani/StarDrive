@@ -28,13 +28,13 @@ router.get(
 );
 
 // log in
-router.post("/log-in", (req, res) => {
-  res.send("User can log in");
-});
+router.post(
+  "/log-in",
+  routeProtection.noAccountOnly,
+  userController.post_login
+);
 
 // log out
-router.post("/log-out", (req, res) => {
-  res.send("User can log out");
-});
+router.post("/log-out", routeProtection.userProtected, userController.logout);
 
 module.exports = router;

@@ -6,6 +6,7 @@
     <title><%= title %></title>
   </head>
   <body>
+    <%- include("navbar"); -%>
     <h1>Log in form</h1>
     <form method="POST">
       <label for="email">Email:</label>
@@ -21,6 +22,9 @@
       <input type="password" id="pw" name="password" required />
       <button>Log In</button>
     </form>
+    <% if (locals.failureMsg) { %>
+    <p><%= failureMsg %></p>
+    <% } %>
     <p>Don't have an account? <a href="sign-up">Sign Up</a> here!</p>
   </body>
 </html>
