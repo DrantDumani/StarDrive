@@ -8,15 +8,16 @@ const fileRouter = require("./routes/file");
 const userRouter = require("./routes/user");
 const folderRouter = require("./routes/folder");
 const session = require("express-session");
+const passportConfig = require("./passportConfig/passportConfig");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 const sessionConfig = {
-  cookie: { maxAge: 1000 * 3600, httpOnly: true, secure: true },
+  cookie: { maxAge: 1000 * 3600 },
   secret: process.env.SECRET,
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   store: new PrismaSessionStore(client, {
     checkPeriod: 2 * 60 * 1000,
@@ -25,16 +26,22 @@ const sessionConfig = {
   }),
 };
 
-app.use(session(sessionConfig));
-app.use("/", indexRouter);
-app.use("files", fileRouter);
-app.use("users", userRouter);
-app.use("folders", folderRouter);
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1);
+  sessionConfig.cookie.secure = true;
+}
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(logger("dev"));
-app.use(express.urlencoded({ extended: false }));
+app.use(session(sessionConfig));
+app.use(passportConfig.session());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/", indexRouter);
+app.use("/files", fileRouter);
+app.use("/users", userRouter);
+app.use("/folders", folderRouter);
 
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
