@@ -24,24 +24,30 @@ model Users {
 
 model Folders {
   id Int @id @default(autoincrement())
-  name String @db.VarChar(20) @unique
+  name String @db.VarChar(20)
   created_at DateTime @default(now())
   owner Users @relation(fields: [userId], references: [id])
   userId Int
   files Files[]
+  parentId Int?
+  parent Folders? @relation("NestedFolders",fields: [parentId], references: [id])
+  nestedFolders Folders[] @relation("NestedFolders")
+  type Type @default(Child)
+  @@unique([name, userId, parentId])
 }
 
 model Files {
     id  Int  @id @default(autoincrement())
-    name String @unique
+    name String 
     type String
     size Int
     created_at DateTime @default(now())
     dl_link String
-    parent Folders @relation(fields: [folderId], references: [id], onDelete: Cascade)
-    folderId Int
+    parent Folders? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+    folderId Int?
     owner Users @relation(fields: [userId], references: [id])
     userId Int
+    @@unique([name, userId, folderId])
 }
 
 model Session {
@@ -49,4 +55,9 @@ model Session {
   sid       String   @unique
   data      String   
   expiresAt   DateTime
+}
+
+enum Type {
+  Root
+  Child
 }
