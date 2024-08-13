@@ -7,6 +7,23 @@
   </head>
   <body>
     <%- include("navbar"); -%>
-    <h1>Welcome <%=username %></h1>
+    <main>
+      <h1>Welcome <%=username %></h1>
+      <%- include("folderForm"); -%>
+
+      <div>
+        <% if (!content.nestedFolders.length && !content.files.length) { %>
+        <p>This folder is empty</p>
+        <%} else { %>
+        <ul>
+          <% content.nestedFolders.forEach(fol => { %>
+          <li><a href="<%= `/folders/${fol.id}` %>"><%= fol.name %></a></li>
+          <%}) %> <% content.files.forEach(fil => { %>
+          <li><%= fil.name %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+    </main>
   </body>
 </html>

@@ -39,6 +39,14 @@ exports.post_signUp = async (req, res, next) => {
         username: req.body.username,
         email: req.body.email,
         password: hashPw,
+        folders: {
+          create: [
+            {
+              name: "Root",
+              type: "Root",
+            },
+          ],
+        },
       },
     });
     req.login(user, (err) => {

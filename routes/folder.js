@@ -1,4 +1,7 @@
 const { Router } = require("express");
+const validator = require("../middleware/validation");
+const routeProtection = require("../middleware/routeProtection");
+const folderController = require("../controllers/folderController");
 
 const router = Router();
 
@@ -10,11 +13,13 @@ router.get("/:folderId", (req, res) => {
 });
 
 // create new folder
-router.post("/create", (req, res) => {
-  res.send(
-    "Create a new folder. If parent folder in body, then this is a child"
-  );
-});
+router.post(
+  "/create",
+  routeProtection.userProtected,
+  validator.validateFolderName(),
+  validator.validateFolderCreate,
+  folderController.createFolder
+);
 
 // edit the folder
 router.post("/:folderId/edit", (req, res) => {

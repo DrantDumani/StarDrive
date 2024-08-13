@@ -34,3 +34,24 @@ exports.validateSignUp = (req, res, next) => {
     });
   }
 };
+
+exports.validateFolderName = () => {
+  return [
+    body("folderName", "Folder name cannot be empty")
+      .isString()
+      .trim()
+      .isLength({ min: 1 }),
+  ];
+};
+
+exports.validateFolderCreate = (req, res, next) => {
+  const errors = validationResult(req);
+  console.log("idk");
+  if (errors.isEmpty()) return next();
+  else {
+    return res.render("dashboard", {
+      title: "Star Drive",
+      username: req.user.username,
+    });
+  }
+};

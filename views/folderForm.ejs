@@ -1,0 +1,6 @@
+<form method="POST" action="/folders/create">
+  <label for="folderName">Name</label>
+  <input id="folderName" name="folderName" required />
+  <input type="hidden" name="parentId" value="<%= locals.parentId %>" />
+  <button>Create Folder</button>
+</form>
