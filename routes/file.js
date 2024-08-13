@@ -1,4 +1,7 @@
 const { Router } = require("express");
+const routeProtection = require("../middleware/routeProtection");
+const upload = require("../multer/multerConfig");
+const fileController = require("../controllers/fileController");
 
 const router = Router();
 
@@ -8,9 +11,12 @@ router.get("/:fileId", (req, res) => {
 });
 
 // create new file
-router.post("/create", (req, res) => {
-  res.send("Create a new file in root or folder");
-});
+router.post(
+  "/create",
+  routeProtection.userProtected,
+  upload.single("file"),
+  fileController.uploadFileToRoot
+);
 
 // visit delete page for file
 router.get("/:fileId/delete", (req, res) => {
