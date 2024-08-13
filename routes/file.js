@@ -18,6 +18,13 @@ router.post(
   fileController.uploadFileToRoot
 );
 
+router.post(
+  "/:folderId/create",
+  routeProtection.userProtected,
+  upload.single("file"),
+  fileController.uploadNestedFile
+);
+
 // visit delete page for file
 router.get("/:fileId/delete", (req, res) => {
   res.send("Visit the delete confirmation page of the file you're in.");

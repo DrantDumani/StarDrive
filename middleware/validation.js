@@ -46,7 +46,6 @@ exports.validateFolderName = () => {
 
 exports.validateFolderCreate = (req, res, next) => {
   const errors = validationResult(req);
-  console.log("idk");
   if (errors.isEmpty()) return next();
   else {
     return res.render("dashboard", {

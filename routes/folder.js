@@ -6,11 +6,11 @@ const folderController = require("../controllers/folderController");
 const router = Router();
 
 // render all content inside of folder
-router.get("/:folderId", (req, res) => {
-  res.send(
-    "Renders all content inside of the folder. folderId is used for upload form params"
-  );
-});
+router.get(
+  "/:folderId",
+  routeProtection.userProtected,
+  folderController.get_folder
+);
 
 // create new folder
 router.post(
@@ -19,6 +19,14 @@ router.post(
   validator.validateFolderName(),
   validator.validateFolderCreate,
   folderController.createFolder
+);
+
+router.post(
+  "/:folderId/create",
+  routeProtection.userProtected,
+  validator.validateFolderName(),
+  validator.validateFolderCreate,
+  folderController.createNestedFolder
 );
 
 // edit the folder
