@@ -12,16 +12,26 @@ exports.dashboard = async (req, res, next) => {
           orderBy: {
             created_at: "desc",
           },
+          select: {
+            name: true,
+            id: true,
+            created_at: true,
+          },
         },
         nestedFolders: {
           orderBy: {
             created_at: "desc",
           },
+          select: {
+            name: true,
+            id: true,
+            created_at: true,
+          },
         },
       },
     });
 
-    res.render("dashboard", {
+    return res.render("dashboard", {
       title: "Star Drive",
       username: req.user.username,
       content: rootContents,

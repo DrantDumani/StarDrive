@@ -6,9 +6,11 @@ const fileController = require("../controllers/fileController");
 const router = Router();
 
 // render all content inside of file
-router.get("/:fileId", (req, res) => {
-  res.send("Render file details such as size, name, creation date, and type");
-});
+router.get(
+  "/:fileId",
+  routeProtection.userProtected,
+  fileController.getFileData
+);
 
 // create new file
 router.post(
@@ -26,13 +28,17 @@ router.post(
 );
 
 // visit delete page for file
-router.get("/:fileId/delete", (req, res) => {
-  res.send("Visit the delete confirmation page of the file you're in.");
-});
+router.get(
+  "/:fileId/delete",
+  routeProtection.userProtected,
+  fileController.getFileDelete
+);
 
 // confirm delete
-router.post("/:fileId/delete", (req, res) => {
-  res.send("Delete the file for good");
-});
+router.post(
+  "/:fileId/delete",
+  routeProtection.userProtected,
+  fileController.post_delete_file
+);
 
 module.exports = router;

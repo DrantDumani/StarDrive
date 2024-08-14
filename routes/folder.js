@@ -30,18 +30,26 @@ router.post(
 );
 
 // edit the folder
-router.post("/:folderId/edit", (req, res) => {
-  res.send("Update the name of the folder you're in");
-});
+router.post(
+  "/:folderId/edit",
+  routeProtection.userProtected,
+  validator.validateFolderName(),
+  validator.validateFolderCreate,
+  folderController.editFolder
+);
 
 // visit delete page for folder
-router.get("/:folderId/delete", (req, res) => {
-  res.send("Visit the delete confirmation page of the folder you're in.");
-});
+router.get(
+  "/:folderId/delete",
+  routeProtection.userProtected,
+  folderController.delete_folder_get
+);
 
 // confirm delete
-router.post("/:folderId/delete", (req, res) => {
-  res.send("Delete the folder for good");
-});
+router.post(
+  "/:folderId/delete",
+  routeProtection.userProtected,
+  folderController.delete_folder_post
+);
 
 module.exports = router;

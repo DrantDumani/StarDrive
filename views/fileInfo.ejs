@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include("navbar"); -%>
+
+    <h1><%= file.name %></h1>
+
+    <a href="<%= `/folders/${file.folderId}` %>">Back to Parent</a>
+
+    <p>Size: <%= file.size %> bytes</p>
+    <p>Type: <%= file.type %></p>
+    <p>Date: <%= file.created_at %></p>
+
+    <a href="<%= `/files/${file.id}/delete` %>">Delete</a>
+  </body>
+</html>

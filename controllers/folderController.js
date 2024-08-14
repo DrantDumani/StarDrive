@@ -79,11 +79,66 @@ exports.createNestedFolder = async (req, res, next) => {
       },
     });
   } catch (err) {
-    console.log(err);
     if (err.code !== "P2002") {
       throw new Error(err);
     }
   } finally {
     return res.redirect(`/folders/${req.params.folderId}`);
+  }
+};
+
+exports.editFolder = async (req, res, next) => {
+  try {
+    await client.folders.update({
+      where: {
+        type: "Child",
+        id: Number(req.params.folderId),
+        userId: req.user.id,
+      },
+      data: {
+        name: req.body.folderName,
+      },
+    });
+  } catch (err) {
+    if (err.code !== "P2002") {
+      throw new Error(err);
+    }
+  } finally {
+    return res.redirect(`/folders/${req.params.folderId}`);
+  }
+};
+
+exports.delete_folder_get = async (req, res, next) => {
+  try {
+    const folder = await client.folders.findUnique({
+      where: {
+        id: Number(req.params.folderId),
+        userId: req.user.id,
+      },
+    });
+
+    res.render("deleteFolder", {
+      title: folder.name,
+      folder: folder,
+      username: req.user.username,
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+};
+
+exports.delete_folder_post = async (req, res, next) => {
+  try {
+    const deletedFolder = await client.folders.delete({
+      where: {
+        id: Number(req.params.folderId),
+        userId: req.user.id,
+      },
+    });
+    res.redirect(`/folders/${deletedFolder.parentId}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
   }
 };

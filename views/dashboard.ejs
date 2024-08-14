@@ -10,7 +10,17 @@
     <main>
       <h1>Welcome <%=username %></h1>
       <h2>Viewing <%= content.name %></h2>
-      <%- include("folderForm"); -%> <%- include("fileForm"); -%>
+
+      <% if (content.type !== "Root") { %>
+      <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
+      <% } %> <% if (locals.content.type !== "Root") { %>
+      <form method="POST" action="<%= `/folders/${content.id}/edit` %>">
+        <label for="editedFolder">Name</label>
+        <input id="editedFolder" name="folderName" required />
+        <button>Edit Folder</button>
+      </form>
+
+      <% } %> <%- include("folderForm"); -%> <%- include("fileForm"); -%>
 
       <div>
         <% if (!content.nestedFolders.length && !content.files.length) { %>

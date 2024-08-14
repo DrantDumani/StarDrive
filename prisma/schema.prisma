@@ -30,7 +30,7 @@ model Folders {
   userId Int
   files Files[]
   parentId Int?
-  parent Folders? @relation("NestedFolders",fields: [parentId], references: [id])
+  parent Folders? @relation("NestedFolders",fields: [parentId], references: [id], onDelete: Cascade)
   nestedFolders Folders[] @relation("NestedFolders")
   type Type @default(Child)
   @@unique([name, userId, parentId])
