@@ -1,7 +1,4 @@
-<form
-  method="POST"
-  action="<%= locals.currentFolderId ? `/folders/${currentFolderId}/create` : '/folders/create' %>"
->
+<form method="POST" action="/folders/create">
   <label for="folderName">Name</label>
   <input id="folderName" name="folderName" required />
   <button>Create Folder</button>

@@ -72,23 +72,24 @@ exports.createFolder = async (req, res, next) => {
   }
 };
 
-exports.createNestedFolder = async (req, res, next) => {
-  try {
-    await client.folders.create({
-      data: {
-        name: req.body.folderName,
-        userId: req.user.id,
-        parentId: Number(req.params.folderId),
-      },
-    });
-  } catch (err) {
-    if (err.code !== "P2002") {
-      throw new Error(err);
-    }
-  } finally {
-    return res.redirect(`/folders/${req.params.folderId}`);
-  }
-};
+// Removed function
+// exports.createNestedFolder = async (req, res, next) => {
+//   try {
+//     await client.folders.create({
+//       data: {
+//         name: req.body.folderName,
+//         userId: req.user.id,
+//         parentId: Number(req.params.folderId),
+//       },
+//     });
+//   } catch (err) {
+//     if (err.code !== "P2002") {
+//       throw new Error(err);
+//     }
+//   } finally {
+//     return res.redirect(`/folders/${req.params.folderId}`);
+//   }
+// };
 
 exports.editFolder = async (req, res, next) => {
   try {

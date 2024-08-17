@@ -21,13 +21,14 @@ router.post(
   folderController.createFolder
 );
 
-router.post(
-  "/:folderId/create",
-  routeProtection.userProtected,
-  validator.validateFolderName(),
-  validator.validateFolderCreate,
-  folderController.createNestedFolder
-);
+// removed route
+// router.post(
+//   "/:folderId/create",
+//   routeProtection.userProtected,
+//   validator.validateFolderName(),
+//   validator.validateFolderCreate,
+//   folderController.createNestedFolder
+// );
 
 // edit the folder
 router.post(
