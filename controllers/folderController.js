@@ -1,4 +1,7 @@
 const client = require("../prisma/client");
+const supabase = require("../supabase/client");
+
+const bucketId = process.env.SUPABASE_BUCKET_ID;
 
 exports.get_folder = async (req, res, next) => {
   try {
@@ -130,6 +133,14 @@ exports.delete_folder_get = async (req, res, next) => {
 
 exports.delete_folder_post = async (req, res, next) => {
   try {
+    const filesInFolder = await supabase.storage
+      .from(bucketId)
+      .list(`${req.user.id}/${req.params.folderId}`);
+
+    const filePaths = filesInFolder.data.map(
+      (file) => `${req.user.id}/${req.params.folderId}/${file.name}`
+    );
+    await supabase.storage.from(bucketId).remove(filePaths);
     const deletedFolder = await client.folders.delete({
       where: {
         id: Number(req.params.folderId),
