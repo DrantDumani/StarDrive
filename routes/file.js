@@ -12,6 +12,13 @@ router.get(
   fileController.getFileData
 );
 
+// download file
+router.get(
+  "/:fileId/download",
+  routeProtection.userProtected,
+  fileController.downloadFileData
+);
+
 // create new file
 router.post(
   "/create",

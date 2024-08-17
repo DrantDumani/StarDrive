@@ -24,10 +24,35 @@ exports.getFileData = async (req, res, next) => {
   }
 };
 
+exports.downloadFileData = async (req, res, next) => {
+  try {
+    const file = await client.files.findUnique({
+      where: {
+        id: Number(req.params.fileId),
+        userId: req.user.id,
+      },
+    });
+
+    if (file) {
+      console.log(file.dl_link);
+      const { data, error } = await supabase.storage
+        .from(bucketId)
+        .createSignedUrl(file.dl_link, 60, { download: true });
+
+      console.log(data, error);
+      return res.redirect(data.signedUrl);
+    }
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+};
+
 exports.uploadFileToRoot = async (req, res, next) => {
   try {
     if (req.file) {
       // upload file to supabase first
+      console.log(req.file.buffer);
       const { data, error } = await supabase.storage
         .from(bucketId)
         .upload(`${req.user.id}/${req.file.originalname}`, req.file.buffer);

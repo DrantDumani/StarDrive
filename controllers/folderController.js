@@ -141,14 +141,17 @@ exports.delete_folder_post = async (req, res, next) => {
     const filePaths = filesInFolder.data.map(
       (file) => `${req.user.id}/${req.params.folderId}/${file.name}`
     );
-    await supabase.storage.from(bucketId).remove(filePaths);
-    const deletedFolder = await client.folders.delete({
-      where: {
-        id: Number(req.params.folderId),
-        userId: req.user.id,
-      },
-    });
-    res.redirect(`/folders/${deletedFolder.parentId}`);
+    await Promise.all([
+      supabase.storage.from(bucketId).remove(filePaths),
+      client.folders.delete({
+        where: {
+          id: Number(req.params.folderId),
+          userId: req.user.id,
+        },
+      }),
+    ]);
+
+    res.redirect("/");
   } catch (err) {
     console.error(err);
     res.redirect("/");

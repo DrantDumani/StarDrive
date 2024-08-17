@@ -16,6 +16,7 @@
     <p>Type: <%= file.type %></p>
     <p>Date: <%= file.created_at %></p>
 
+    <a href="<%= `/files/${file.id}/download` %>">Download</a>
     <a href="<%= `/files/${file.id}/delete` %>">Delete</a>
   </body>
 </html>
