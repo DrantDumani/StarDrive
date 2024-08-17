@@ -1,4 +1,6 @@
 const client = require("../prisma/client");
+const supabase = require("../supabase/client");
+const bucketId = process.env.SUPABASE_BUCKET_ID;
 
 exports.getFileData = async (req, res, next) => {
   try {
@@ -25,6 +27,17 @@ exports.getFileData = async (req, res, next) => {
 exports.uploadFileToRoot = async (req, res, next) => {
   try {
     if (req.file) {
+      // upload file to supabase first
+      const { data, error } = await supabase.storage
+        .from(bucketId)
+        .upload(`${req.user.id}/${req.file.originalname}`, req.file.buffer);
+
+      if (error) {
+        console.error("There was an error");
+        return; // temporary exit until the duplicated error is handled
+        // ideally, you'd want to just re-render with the modal visible and the error
+      }
+
       const root = await client.folders.findFirst({
         where: {
           userId: req.user.id,
@@ -40,7 +53,7 @@ exports.uploadFileToRoot = async (req, res, next) => {
           name: req.file.originalname,
           type: req.file.mimetype,
           size: req.file.size,
-          dl_link: req.file.path,
+          dl_link: data.path,
           userId: req.user.id,
           folderId: root.id,
         },
@@ -58,12 +71,24 @@ exports.uploadFileToRoot = async (req, res, next) => {
 exports.uploadNestedFile = async (req, res, next) => {
   try {
     if (req.file) {
+      const { data, error } = await supabase.storage
+        .from(bucketId)
+        .upload(
+          `${req.user.id}/${req.params.folderId}/${req.file.originalname}`
+        );
+
+      if (error) {
+        console.error("There was an error");
+        return; // temporary exit until the duplicated error is handled
+        // ideally, you'd want to just re-render with the modal visible and the error
+      }
+
       await client.files.create({
         data: {
           name: req.file.originalname,
           type: req.file.mimetype,
           size: req.file.size,
-          dl_link: req.file.path,
+          dl_link: data.path,
           userId: req.user.id,
           folderId: Number(req.params.folderId),
         },
@@ -113,6 +138,10 @@ exports.post_delete_file = async (req, res, next) => {
         userId: req.user.id,
       },
     });
+
+    console.log(deletedFile.dl_link);
+
+    await supabase.storage.from(bucketId).remove([deletedFile.dl_link]);
     res.redirect(`/folders/${deletedFile.folderId}/`);
   } catch (err) {
     console.error(err);

@@ -1,7 +1,7 @@
 const multer = require("multer");
 
 const upload = multer({
-  dest: "./uploadsTemp",
+  storage: multer.memoryStorage(),
   limits: { fileSize: 1000000, files: 1 },
 });
 
