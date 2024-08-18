@@ -1,0 +1,131 @@
+@font-face {
+  font-family: RobotoCondensed;
+  src: url("../fonts/RobotoCondensed-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: RobotoCondensed;
+  src: url("../fonts/RobotoCondensed-SemiBold.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: RobotoCondensed;
+  src: url("../fonts/RobotoCondensed-Bold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --mob-pad: 1rem;
+}
+
+body {
+  font-family: "RobotoCondensed", "Times New Roman", Times, serif;
+  color: #202020;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  padding: var(--mob-pad);
+  background-color: #fea90f;
+  border-bottom: 2.5px solid #521515;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.375rem;
+}
+
+.nav-link:hover {
+  color: #4f1387;
+}
+
+.nav-btn {
+  border: none;
+  background-color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+main {
+  flex-grow: 1;
+  padding: var(--mob-pad);
+  background-color: #e5f9fc;
+}
+
+.form-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem 0;
+}
+
+.form-title {
+  font-size: 3rem;
+}
+
+.user-form {
+  border: 1px solid #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem;
+  background-color: #fbfbfb;
+}
+
+.label-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.form-label {
+  font-size: 14px;
+}
+
+.form-input {
+  border-radius: 4px;
+  border: 1px solid #000;
+  padding: 4px;
+}
+
+.form-submit {
+  margin: 0 auto;
+  width: 80px;
+  font-family: inherit;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.form-submit:hover {
+  background-color: #a6f8a6;
+}
+
+.other-form-text {
+  font-size: 1.125rem;
+}
