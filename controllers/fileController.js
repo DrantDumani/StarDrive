@@ -34,12 +34,10 @@ exports.downloadFileData = async (req, res, next) => {
     });
 
     if (file) {
-      console.log(file.dl_link);
       const { data, error } = await supabase.storage
         .from(bucketId)
         .createSignedUrl(file.dl_link, 60, { download: true });
 
-      console.log(data, error);
       return res.redirect(data.signedUrl);
     }
   } catch (err) {
@@ -52,7 +50,6 @@ exports.uploadFileToRoot = async (req, res, next) => {
   try {
     if (req.file) {
       // upload file to supabase first
-      console.log(req.file.buffer);
       const { data, error } = await supabase.storage
         .from(bucketId)
         .upload(`${req.user.id}/${req.file.originalname}`, req.file.buffer);
@@ -163,8 +160,6 @@ exports.post_delete_file = async (req, res, next) => {
         userId: req.user.id,
       },
     });
-
-    console.log(deletedFile.dl_link);
 
     await supabase.storage.from(bucketId).remove([deletedFile.dl_link]);
     res.redirect(`/folders/${deletedFile.folderId}/`);
