@@ -19,6 +19,7 @@
       <h2>Viewing <%= content.name %> Folder</h2>
 
       <% if (content.type !== "Root") {%>
+      <a href="/">Back to Parent</a>
       <button id="edit-btn" class="edit-btn">Edit</button>
       <% } %> <% if (content.type !== "Root") { %>
       <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
