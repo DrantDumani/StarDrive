@@ -12,16 +12,15 @@
       <h1>Welcome <%=username %></h1>
 
       <div class="toggle-btn-container">
-        <button class="toggle-btn">New Folder</button>
-        <button class="toggle-btn">Upload File</button>
+        <button id="new-folder-btn" class="toggle-btn">New Folder</button>
+        <button id="new-file-btn" class="toggle-btn">Upload File</button>
       </div>
 
       <h2>Viewing <%= content.name %> Folder</h2>
 
+      <% if (content.type !== "Root") {%>
       <button id="edit-btn" class="edit-btn">Edit</button>
-      <button id="cancel-btn" class="cancel-btn hide">Cancel</button>
-
-      <% if (content.type !== "Root") { %>
+      <% } %> <% if (content.type !== "Root") { %>
       <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
       <% } %> <% if (locals.content.type !== "Root") { %> <%-
       include("editFolderForm"); -%> <% } %> <%- include("folderForm"); -%> <%-
@@ -57,5 +56,6 @@
         <% } %> <% } %>
       </div>
     </main>
+    <script src="/scripts/script.js"></script>
   </body>
 </html>

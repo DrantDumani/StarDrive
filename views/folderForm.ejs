@@ -1,5 +1,15 @@
-<form class="hide-modal" method="POST" action="/folders/create">
-  <label for="folderName">Name</label>
-  <input id="folderName" name="folderName" required />
-  <button>Create Folder</button>
-</form>
+<div class="hide-modal" id="folder-form">
+  <form class="form-modal" method="POST" action="/folders/create">
+    <label class="modal-form-label" for="folderName">Name:</label>
+    <input
+      class="form-input modal-form-input"
+      id="folderName"
+      name="folderName"
+      required
+    />
+    <div class="modal-btn-container">
+      <button class="form-submit">Create Folder</button>
+      <button id="close-modal" type="button" class="close-modal">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -91,14 +91,23 @@ main {
   font-size: 3rem;
 }
 
-.user-form {
+.user-form,
+.form-modal {
+  display: flex;
+  padding: 2.5rem;
+  flex-direction: column;
   border: 1px solid #000;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
+}
+
+.user-form {
   gap: 2rem;
-  padding: 2.5rem;
+
   background-color: #fbfbfb;
+}
+
+.form-modal {
+  background-color: #e5f9fc;
 }
 
 .label-wrapper {
@@ -118,7 +127,8 @@ main {
   font-family: inherit;
 }
 
-.form-submit {
+.form-submit,
+.close-modal {
   margin: 0 auto;
   width: 80px;
   font-family: inherit;
@@ -131,12 +141,15 @@ main {
   background-color: #a6f8a6;
 }
 
+.close-modal:hover {
+  background-color: #ffb5b5;
+}
+
 .other-form-text {
   font-size: 1.125rem;
 }
 
-.hide-modal,
-.hide {
+.hide-modal {
   display: none;
 }
 
@@ -148,8 +161,7 @@ main {
 
 .toggle-btn,
 .delete-btn,
-.edit-btn,
-.cancel-btn {
+.edit-btn {
   flex-basis: 50%;
   max-width: 8.75rem;
   font-size: 1.375rem;
@@ -161,13 +173,11 @@ main {
   cursor: pointer;
 }
 
-.edit-btn,
-.cancel-btn {
+.edit-btn {
   background-color: #f1ff33;
 }
 
-.edit-btn:hover,
-.cancel-btn:hover {
+.edit-btn:hover {
   background-color: #f7ff8b;
 }
 
@@ -206,4 +216,30 @@ main {
 
 .file-title {
   word-break: break-all;
+}
+
+.modal-wrapper {
+  background-color: #04040485;
+  position: fixed;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-form-label {
+  padding-bottom: 4px;
+}
+
+.modal-form-input {
+  margin-bottom: 1rem;
+}
+
+.modal-btn-container {
+  display: flex;
+  gap: 0.5rem;
 }

@@ -1,10 +1,23 @@
-<form
-  class="hide-modal"
-  method="POST"
-  enctype="multipart/form-data"
-  action="<%= locals.currentFolderId ? `/files/${currentFolderId}/create` : '/files/create' %>"
->
-  <label for="file-upload">File:</label>
-  <input type="file" name="file" id="file-upload" required />
-  <button>Upload File</button>
-</form>
+<div class="hide-modal" id="file-form">
+  <form
+    class="form-modal"
+    method="POST"
+    enctype="multipart/form-data"
+    action="<%= locals.currentFolderId ? `/files/${currentFolderId}/create` : '/files/create' %>"
+  >
+    <label class="modal-form-label" for="file-upload">File:</label>
+    <input
+      class="form-input modal-form-input"
+      type="file"
+      name="file"
+      id="file-upload"
+      required
+    />
+    <div class="modal-btn-container">
+      <button class="form-submit">Upload File</button>
+      <button id="close-file-modal" type="button" class="close-modal">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
