@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title><%= title %></title>
   </head>
   <body>
     <%- include("navbar"); -%>
 
-    <h1><%= file.name %></h1>
-
-    <a href="<%= `/folders/${file.folderId}` %>">Back to Parent</a>
-
-    <p>Size: <%= file.size %> bytes</p>
-    <p>Type: <%= file.type %></p>
-    <p>Date: <%= file.created_at %></p>
-
-    <a href="<%= `/files/${file.id}/download` %>">Download</a>
-    <a href="<%= `/files/${file.id}/delete` %>">Delete</a>
+    <main class="content-page">
+      <h1 class="file-title"><%= file.name %></h1>
+      <a href="<%= `/folders/${file.folderId}` %>">Back to Parent</a>
+      <p>Size: <%= (file.size / 1000).toFixed(2)%> kb</p>
+      <p>Type: <%= file.type %></p>
+      <p>Date: <%= file.created_at %></p>
+      <a href="<%= `/files/${file.id}/download` %>">Download</a>
+      <a href="<%= `/files/${file.id}/delete` %>">Delete</a>
+    </main>
   </body>
 </html>

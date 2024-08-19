@@ -3,50 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title><%= title %></title>
   </head>
   <body>
     <%- include("navbar"); -%>
-    <h1>Sign Up</h1>
-    <form method="POST">
-      <label for="username">Username</label>
-      <input
-        id="username"
-        name="username"
-        required
-        minlength="3"
-        value="<%=(locals.username || '')%>"
-      />
+    <main class="form-page">
+      <h1 class="form-title">Sign Up</h1>
+      <form class="user-form" method="POST">
+        <div class="label-wrapper">
+          <label class="form-label" for="username">Username</label>
+          <input
+            class="form-input"
+            id="username"
+            name="username"
+            required
+            minlength="3"
+            value="<%=(locals.username || '')%>"
+          />
+        </div>
 
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        value="<%=(locals.email || '')%>"
-      />
+        <div class="label-wrapper">
+          <label class="form-label" for="email">Email:</label>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            required
+            value="<%=(locals.email || '')%>"
+          />
+        </div>
 
-      <label for="pw">Password:</label>
-      <input type="password" id="pw" name="password" minlength="8" required />
+        <div class="label-wrapper">
+          <label class="form-label" for="pw">Password:</label>
+          <input
+            class="form-input"
+            type="password"
+            id="pw"
+            name="password"
+            minlength="8"
+            required
+          />
+        </div>
 
-      <label for="confirmPw">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPw"
-        name="confirmPw"
-        minlength="8"
-        required
-      />
-      <button>Sign Up</button>
-    </form>
-    <% if (locals.errors) { %>
-    <p>
-      Placeholder error for non matching passwords or re-used email addresses
-    </p>
-    <% } %> <% if (locals.dbError) { %>
-    <p><%= dbError %></p>
-    <% } %>
-    <p>Already have an account? <a href="log-in">Log In</a> here!</p>
+        <div class="label-wrapper">
+          <label class="form-label" for="confirmPw">Confirm Password:</label>
+          <input
+            class="form-input"
+            type="password"
+            id="confirmPw"
+            name="confirmPw"
+            minlength="8"
+            required
+          />
+        </div>
+
+        <button class="form-submit">Sign Up</button>
+      </form>
+      <% if (locals.errors) { %>
+      <p>
+        Placeholder error for non matching passwords or re-used email addresses
+      </p>
+      <% } %> <% if (locals.dbError) { %>
+      <p><%= dbError %></p>
+      <% } %>
+      <p class="other-form-text">
+        Already have an account? <a href="log-in">Log In</a> here!
+      </p>
+    </main>
   </body>
 </html>

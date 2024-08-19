@@ -75,12 +75,16 @@ main {
   background-color: #e5f9fc;
 }
 
-.form-page {
+.form-page,
+.content-page {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem 0;
+}
+
+.form-page {
   justify-content: center;
   align-items: center;
-  gap: 1.5rem 0;
 }
 
 .form-title {
@@ -111,6 +115,7 @@ main {
   border-radius: 4px;
   border: 1px solid #000;
   padding: 4px;
+  font-family: inherit;
 }
 
 .form-submit {
@@ -128,4 +133,77 @@ main {
 
 .other-form-text {
   font-size: 1.125rem;
+}
+
+.hide-modal,
+.hide {
+  display: none;
+}
+
+.toggle-btn-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.toggle-btn,
+.delete-btn,
+.edit-btn,
+.cancel-btn {
+  flex-basis: 50%;
+  max-width: 8.75rem;
+  font-size: 1.375rem;
+  font-family: inherit;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #000;
+  background-color: #acffac;
+  cursor: pointer;
+}
+
+.edit-btn,
+.cancel-btn {
+  background-color: #f1ff33;
+}
+
+.edit-btn:hover,
+.cancel-btn:hover {
+  background-color: #f7ff8b;
+}
+
+.delete-btn {
+  background-color: #ffa4a4;
+}
+
+.delete-btn:hover {
+  background-color: #ffc5c5;
+}
+
+.toggle-btn:hover {
+  background-color: #e7f9e7;
+}
+
+.list-heading {
+  padding-bottom: 0.5rem;
+}
+
+.content-list {
+  list-style: none;
+  padding: 0 0 1.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.list-link {
+  text-decoration: none;
+}
+
+.list-link:hover {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.file-title {
+  word-break: break-all;
 }

@@ -1,0 +1,9 @@
+<form
+  class="hide-modal"
+  method="POST"
+  action="<%= `/folders/${content.id}/edit` %>"
+>
+  <label for="editedFolder">Name</label>
+  <input id="editedFolder" name="folderName" required />
+  <button>Edit Folder</button>
+</form>
