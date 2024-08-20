@@ -20,12 +20,15 @@
 
       <% if (content.type !== "Root") {%>
       <a href="/">Back to Parent</a>
-      <button id="edit-btn" class="edit-btn">Edit</button>
+      <div class="folder-control-btns">
+        <button id="edit-btn" class="edit-btn">Edit</button>
+        <button id="share-btn" class="share-btn">Share</button>
+      </div>
       <% } %> <% if (content.type !== "Root") { %>
       <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
       <% } %> <% if (locals.content.type !== "Root") { %> <%-
-      include("editFolderForm"); -%> <% } %> <%- include("folderForm"); -%> <%-
-      include("fileForm"); -%>
+      include("editFolderForm"); -%> <%- include("shareForm"); -%><% } %> <%-
+      include("folderForm"); -%> <%- include("fileForm"); -%>
 
       <div class="list-container">
         <% if (!content.nestedFolders.length && !content.files.length) { %>

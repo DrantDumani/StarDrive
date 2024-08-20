@@ -54,3 +54,13 @@ exports.validateFolderCreate = (req, res, next) => {
     });
   }
 };
+
+exports.validateShareOptions = (req, res, next) => {
+  // make sure the value for day is a number > 0
+  // also, it's gotta be an integer
+  // if it's not, re-render the form with the error
+};
+
+exports.validateShareCreate = (req, res, next) => {
+  // check errors and decide to proceed to the next route or send errors
+};

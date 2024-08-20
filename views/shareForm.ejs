@@ -1,0 +1,25 @@
+<div class="hide-modal" id="share-form">
+  <form
+    class="form-modal"
+    method="POST"
+    action="<% `/share/${currentFolderId}` %>"
+  >
+    <label class="modal-form-label" for="shareLink">Duration (hours):</label>
+    <input
+      type="number"
+      class="form-input modal-form-input"
+      id="shareLink"
+      name="shareLink"
+      min="1"
+      step="1"
+      required
+    />
+    <div class="modal-btn-container">
+      <button class="form-submit">Share Folder</button>
+      <button id="close-share-modal" type="button" class="close-modal">
+        Cancel
+      </button>
+    </div>
+    <p>Duration must be a whole number greater than zero</p>
+  </form>
+</div>

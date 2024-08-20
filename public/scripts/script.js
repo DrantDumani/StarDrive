@@ -50,3 +50,19 @@ if (closeEditModalBtn) {
     toggleModal(editForm);
   });
 }
+
+const shareBtn = document.querySelector("#share-btn");
+if (shareBtn) {
+  shareBtn.addEventListener("click", () => {
+    const shareForm = document.querySelector("#share-form");
+    toggleModal(shareForm);
+  });
+}
+
+const closeShareModalBtn = document.querySelector("#close-share-modal");
+if (closeShareModalBtn) {
+  closeShareModalBtn.addEventListener("click", () => {
+    const shareForm = document.querySelector("#share-form");
+    toggleModal(shareForm);
+  });
+}

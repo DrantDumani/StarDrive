@@ -153,14 +153,16 @@ main {
   display: none;
 }
 
-.toggle-btn-container {
+.toggle-btn-container,
+.folder-control-btns {
   display: flex;
   gap: 1rem;
 }
 
 .toggle-btn,
 .delete-btn,
-.edit-btn {
+.edit-btn,
+.share-btn {
   flex-basis: 50%;
   max-width: 8.75rem;
   font-size: 1.375rem;
@@ -178,6 +180,14 @@ main {
 
 .edit-btn:hover {
   background-color: #f7ff8b;
+}
+
+.share-btn {
+  background-color: #d3a3ff;
+}
+
+.share-btn:hover {
+  background-color: #dab4fd;
 }
 
 .delete-btn {
