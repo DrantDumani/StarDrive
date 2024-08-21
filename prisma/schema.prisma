@@ -55,7 +55,7 @@ model Files {
 
 model ShareLinks {
   id String @id @default(uuid())
-  shareFolder Folders @relation(fields: [folderId], references: [id])
+  shareFolder Folders @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId Int 
   expires_at DateTime
 }
