@@ -45,8 +45,9 @@ exports.getShareFolder = async (req, res, next) => {
       shareUrl: shareUrl,
     });
   } catch (err) {
-    console.error(err);
-    return res.send("Invalid or expired share link");
+    return res.render("invalidShare", {
+      username: req?.user?.username,
+    });
   }
 };
 
@@ -87,8 +88,9 @@ exports.getShareFile = async (req, res, next) => {
     console.log(validLink.expires_at);
     console.log(req.originalUrl);
   } catch (err) {
-    console.error(err);
-    return res.send("Invalid or expired share link");
+    return res.render("invalidShare", {
+      username: req?.user?.username,
+    });
   }
 };
 
@@ -146,7 +148,8 @@ exports.downloadFileData = async (req, res, next) => {
       throw new Error();
     }
   } catch (err) {
-    console.error(err);
-    res.send("Invalid stuff");
+    return res.render("invalidShare", {
+      username: req?.user?.username,
+    });
   }
 };
