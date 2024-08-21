@@ -11,9 +11,27 @@ const shareRouter = require("./routes/share");
 const session = require("express-session");
 const passportConfig = require("./passportConfig/passportConfig");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const favicon = require("serve-favicon");
+const compression = require("compression");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 
 const port = process.env.PORT || 3000;
 const app = express();
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'"],
+    },
+  })
+);
+app.use(compression());
+
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
 
 const sessionConfig = {
   cookie: { maxAge: 1000 * 3600 },
@@ -33,6 +51,7 @@ if (app.get("env") === "production") {
 }
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, "/public/images", "favicon.ico")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(logger("dev"));
