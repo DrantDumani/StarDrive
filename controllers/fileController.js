@@ -19,7 +19,6 @@ exports.getFileData = async (req, res, next) => {
       });
     } else throw new Error(err);
   } catch (err) {
-    console.error(err);
     return res.redirect("/");
   }
 };
@@ -41,7 +40,6 @@ exports.downloadFileData = async (req, res, next) => {
       return res.redirect(data.signedUrl);
     }
   } catch (err) {
-    console.error(err);
     res.redirect("/");
   }
 };
@@ -117,7 +115,6 @@ exports.uploadNestedFile = async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.error(err);
     if (err.code !== "P2002") {
       throw new Error(err);
     }
@@ -147,7 +144,6 @@ exports.getFileDelete = async (req, res, next) => {
       });
     } else throw new Error();
   } catch (err) {
-    console.error(err);
     res.redirect("/");
   }
 };
@@ -164,7 +160,6 @@ exports.post_delete_file = async (req, res, next) => {
     await supabase.storage.from(bucketId).remove([deletedFile.dl_link]);
     res.redirect(`/folders/${deletedFile.folderId}/`);
   } catch (err) {
-    console.error(err);
     res.redirect("/");
   }
 };

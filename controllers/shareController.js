@@ -33,7 +33,6 @@ exports.getShareFolder = async (req, res, next) => {
     if (!shareLink) throw new Error();
 
     const shareUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-    console.log(shareUrl);
 
     res.render("dashboard", {
       title: shareLink.shareFolder.name,
@@ -83,10 +82,6 @@ exports.getShareFile = async (req, res, next) => {
       shareLink: true,
       shareId: req.params.shareId,
     });
-    console.log(new Date() > validLink.expires_at);
-    console.log(new Date() < validLink.expires_at);
-    console.log(validLink.expires_at);
-    console.log(req.originalUrl);
   } catch (err) {
     return res.render("invalidShare", {
       username: req?.user?.username,
@@ -108,7 +103,6 @@ exports.createShareLink = async (req, res, next) => {
     return res.redirect(`/share/${shareLink.id}`);
   } catch (err) {
     if (err) {
-      console.error(err);
       return next();
     }
   }

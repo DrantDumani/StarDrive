@@ -39,7 +39,7 @@ exports.get_folder = async (req, res, next) => {
       currentFolderId: folder.id,
     });
   } catch (err) {
-    console.error(err);
+    return next();
   }
 };
 
@@ -108,7 +108,6 @@ exports.delete_folder_get = async (req, res, next) => {
       username: req.user.username,
     });
   } catch (err) {
-    console.error(err);
     res.redirect("/");
   }
 };
@@ -134,7 +133,6 @@ exports.delete_folder_post = async (req, res, next) => {
 
     res.redirect("/");
   } catch (err) {
-    console.error(err);
     res.redirect("/");
   }
 };

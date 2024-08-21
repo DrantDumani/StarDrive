@@ -37,6 +37,6 @@ exports.dashboard = async (req, res, next) => {
       content: rootContents,
     });
   } catch (err) {
-    console.error(err);
+    return next();
   }
 };
