@@ -1,0 +1,22 @@
+<div class="hide-modal" id="edit-form">
+  <form
+    class="form-modal"
+    method="POST"
+    action="<%= `/folders/${content.id}/edit` %>"
+  >
+    <label class="form-input modal-form-input" for="editedFolder">Name</label>
+    <input
+      class="form-input modal-form-input"
+      id="editedFolder"
+      name="folderName"
+      required
+      value="<%= content.name  %>"
+    />
+    <div class="modal-btn-container">
+      <button class="form-submit">Edit Folder</button>
+      <button id="close-edit-modal" type="button" class="close-modal">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

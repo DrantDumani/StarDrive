@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include("navbar"); -%>
+    <main class="form-page">
+      <h1 class="form-title">Log In</h1>
+
+      <form class="user-form" method="POST">
+        <div class="label-wrapper">
+          <label class="form-label" for="email">Email:</label>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            required
+            value="<%=(locals.email || '')%>"
+          />
+        </div>
+
+        <div class="label-wrapper">
+          <label class="form-label" for="pw">Password:</label>
+          <input
+            class="form-input"
+            type="password"
+            id="pw"
+            name="password"
+            required
+          />
+        </div>
+        <button class="form-submit">Log In</button>
+      </form>
+      <% if (locals.failureMsg) { %>
+      <p><%= failureMsg %></p>
+      <% } %>
+      <p class="other-form-text">
+        Don't have an account? <a href="sign-up">Sign Up</a> here!
+      </p>
+    </main>
+  </body>
+</html>

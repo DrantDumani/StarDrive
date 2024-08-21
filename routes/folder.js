@@ -1,34 +1,56 @@
 const { Router } = require("express");
+const validator = require("../middleware/validation");
+const routeProtection = require("../middleware/routeProtection");
+const folderController = require("../controllers/folderController");
 
 const router = Router();
 
 // render all content inside of folder
-router.get("/:folderId", (req, res) => {
-  res.send(
-    "Renders all content inside of the folder. folderId is used for upload form params"
-  );
-});
+router.get(
+  "/:folderId",
+  routeProtection.userProtected,
+  folderController.get_folder
+);
 
 // create new folder
-router.post("/create", (req, res) => {
-  res.send(
-    "Create a new folder. If parent folder in body, then this is a child"
-  );
-});
+router.post(
+  "/create",
+  routeProtection.userProtected,
+  validator.validateFolderName(),
+  validator.validateFolderCreate,
+  folderController.createFolder
+);
+
+// removed route
+// router.post(
+//   "/:folderId/create",
+//   routeProtection.userProtected,
+//   validator.validateFolderName(),
+//   validator.validateFolderCreate,
+//   folderController.createNestedFolder
+// );
 
 // edit the folder
-router.post("/:folderId/edit", (req, res) => {
-  res.send("Update the name of the folder you're in");
-});
+router.post(
+  "/:folderId/edit",
+  routeProtection.userProtected,
+  validator.validateFolderName(),
+  validator.validateFolderCreate,
+  folderController.editFolder
+);
 
 // visit delete page for folder
-router.get("/:folderId/delete", (req, res) => {
-  res.send("Visit the delete confirmation page of the folder you're in.");
-});
+router.get(
+  "/:folderId/delete",
+  routeProtection.userProtected,
+  folderController.delete_folder_get
+);
 
 // confirm delete
-router.post("/:folderId/delete", (req, res) => {
-  res.send("Delete the folder for good");
-});
+router.post(
+  "/:folderId/delete",
+  routeProtection.userProtected,
+  folderController.delete_folder_post
+);
 
 module.exports = router;

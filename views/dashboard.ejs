@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include("navbar"); -%>
+    <main class="content-page">
+      <% if (!locals.shareLink) { %>
+      <h1>Welcome <%=username %></h1>
+
+      <div class="toggle-btn-container">
+        <button id="new-folder-btn" class="toggle-btn">New Folder</button>
+        <button id="new-file-btn" class="toggle-btn">Upload File</button>
+      </div>
+      <% } %>
+
+      <h2>Viewing <%= content.name %> Folder</h2>
+
+      <% if (locals.shareLink) { %>
+      <p>Share Url: <a href="<%= shareUrl %>"><%= shareUrl %></a></p>
+      <% } %> <% if (!locals.shareLink) { %> <% if (content.type !== "Root") {%>
+      <a href="/">Back to Parent</a>
+      <div class="folder-control-btns">
+        <button id="edit-btn" class="edit-btn">Edit</button>
+        <button id="share-btn" class="share-btn">Share</button>
+      </div>
+      <% } %> <% if (content.type !== "Root") { %>
+      <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
+      <% } %> <% if (locals.content.type !== "Root") { %> <%-
+      include("editFolderForm"); -%> <%- include("shareForm"); -%><% } %> <%-
+      include("folderForm"); -%> <%- include("fileForm"); -%> <% } %>
+
+      <div class="list-container">
+        <% if (!content.nestedFolders.length && !content.files.length) { %>
+        <p>This folder is empty</p>
+        <% } else { %> <% if (content.nestedFolders.length) { %>
+
+        <h3 class="list-heading">Folders</h3>
+        <ul class="content-list">
+          <% content.nestedFolders.forEach(fol => { %>
+          <li>
+            <a class="list-link" href="<%= `/folders/${fol.id}` %>"
+              ><%= fol.name %></a
+            >
+          </li>
+          <%}) %>
+        </ul>
+        <% } %> <% if (content.files.length) { %>
+
+        <h3 class="list-heading">Files</h3>
+        <ul class="content-list">
+          <% content.files.forEach(fil => { %>
+          <li>
+            <a
+              class="list-link"
+              href="<%= locals.shareLink ? `/share/${shareId}/${fil.id}` : `/files/${fil.id}` %>"
+              ><%= fil.name %></a
+            >
+          </li>
+          <%}) %>
+        </ul>
+        <% } %> <% } %>
+      </div>
+    </main>
+    <script src="/scripts/script.js"></script>
+  </body>
+</html>
