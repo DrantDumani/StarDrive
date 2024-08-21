@@ -2,14 +2,16 @@
   <form
     class="form-modal"
     method="POST"
-    action="<% `/share/${currentFolderId}` %>"
+    action="<%= `/share/${currentFolderId}` %>"
   >
-    <label class="modal-form-label" for="shareLink">Duration (hours):</label>
+    <label class="modal-form-label" for="shareDuration"
+      >Duration (hours):</label
+    >
     <input
       type="number"
       class="form-input modal-form-input"
-      id="shareLink"
-      name="shareLink"
+      id="shareDuration"
+      name="shareDuration"
       min="1"
       step="1"
       required

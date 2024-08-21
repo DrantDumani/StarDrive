@@ -7,6 +7,7 @@ const indexRouter = require("./routes/index");
 const fileRouter = require("./routes/file");
 const userRouter = require("./routes/user");
 const folderRouter = require("./routes/folder");
+const shareRouter = require("./routes/share");
 const session = require("express-session");
 const passportConfig = require("./passportConfig/passportConfig");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
@@ -43,6 +44,7 @@ app.use("/", indexRouter);
 app.use("/files", fileRouter);
 app.use("/users", userRouter);
 app.use("/folders", folderRouter);
+app.use("/share", shareRouter);
 
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);

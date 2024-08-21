@@ -31,9 +31,12 @@ model Folders {
   owner Users @relation(fields: [userId], references: [id])
   userId Int
   files Files[]
+  parentId Int?
+  parent Folders? @relation("NestedFolders",fields: [parentId], references: [id], onDelete: Cascade)
+  nestedFolders Folders[] @relation("NestedFolders")
   type Type @default(Child)
   shareLinks ShareLinks[]
-  @@unique([name, userId])
+  @@unique([name, userId, parentId])
 }
 
 model Files {
@@ -54,8 +57,7 @@ model ShareLinks {
   id String @id @default(uuid())
   shareFolder Folders @relation(fields: [folderId], references: [id])
   folderId Int 
-  created_at DateTime @default(now())
-  expiresInDays Int
+  expires_at DateTime
 }
 
 model Session {

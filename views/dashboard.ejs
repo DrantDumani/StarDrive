@@ -9,16 +9,20 @@
   <body>
     <%- include("navbar"); -%>
     <main class="content-page">
+      <% if (!locals.shareLink) { %>
       <h1>Welcome <%=username %></h1>
 
       <div class="toggle-btn-container">
         <button id="new-folder-btn" class="toggle-btn">New Folder</button>
         <button id="new-file-btn" class="toggle-btn">Upload File</button>
       </div>
+      <% } %>
 
       <h2>Viewing <%= content.name %> Folder</h2>
 
-      <% if (content.type !== "Root") {%>
+      <% if (locals.shareLink) { %>
+      <p>Share Url: <a href="<%= shareUrl %>"><%= shareUrl %></a></p>
+      <% } %> <% if (!locals.shareLink) { %> <% if (content.type !== "Root") {%>
       <a href="/">Back to Parent</a>
       <div class="folder-control-btns">
         <button id="edit-btn" class="edit-btn">Edit</button>
@@ -28,7 +32,7 @@
       <a href="<%= `/folders/${content.id}/delete` %>">Delete folder</a>
       <% } %> <% if (locals.content.type !== "Root") { %> <%-
       include("editFolderForm"); -%> <%- include("shareForm"); -%><% } %> <%-
-      include("folderForm"); -%> <%- include("fileForm"); -%>
+      include("folderForm"); -%> <%- include("fileForm"); -%> <% } %>
 
       <div class="list-container">
         <% if (!content.nestedFolders.length && !content.files.length) { %>
@@ -51,7 +55,9 @@
         <ul class="content-list">
           <% content.files.forEach(fil => { %>
           <li>
-            <a class="list-link" href="<%= `/files/${fil.id}` %>"
+            <a
+              class="list-link"
+              href="<%= locals.shareLink ? `/share/${shareId}/${fil.id}` : `/files/${fil.id}` %>"
               ><%= fil.name %></a
             >
           </li>

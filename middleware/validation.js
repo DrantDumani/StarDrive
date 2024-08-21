@@ -48,19 +48,21 @@ exports.validateFolderCreate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) return next();
   else {
-    return res.render("dashboard", {
-      title: "Star Drive",
-      username: req.user.username,
-    });
+    return res.redirect("/");
   }
 };
 
 exports.validateShareOptions = (req, res, next) => {
-  // make sure the value for day is a number > 0
-  // also, it's gotta be an integer
-  // if it's not, re-render the form with the error
+  return [
+    body(
+      "shareDuration",
+      "Duration must be whole number greater than zero"
+    ).isInt({ min: 1 }),
+  ];
 };
 
 exports.validateShareCreate = (req, res, next) => {
-  // check errors and decide to proceed to the next route or send errors
+  const errors = validationResult(req);
+  if (errors.isEmpty()) return next();
+  else return res.send("Invalid duration");
 };
