@@ -24,7 +24,9 @@
         href="<%= locals.shareLink ? `/share/${shareId}/${file.id}/download` : `/files/${file.id}/download` %>"
         >Download</a
       >
+      <% if (!locals.shareLink) { %>
       <a href="<%= `/files/${file.id}/delete` %>">Delete</a>
+      <% } %>
     </main>
   </body>
 </html>
